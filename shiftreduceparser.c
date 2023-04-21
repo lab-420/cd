@@ -1,103 +1,75 @@
-
 #include<stdio.h>
-#include<stdlib.h>
 #include<string.h>
-
-int z = 0, i = 0, j = 0, c = 0;
-
+int k = 0, z = 0, i = 0, j = 0, c = 0;
 char a[16], ac[20], stk[15], act[10];
-
-void check()
+void check ();
+int main ()
 {
-
-	strcpy(ac,"REDUCE TO E -> ");
-
-	for(z = 0; z < c; z++)
-	{
-		if(stk[z] == '4')
-		{
-			printf("%s4", ac);
-			stk[z] = 'E';
-			stk[z + 1] = '\0';
-	
-			printf("\n$%s\t%s$\t", stk, a);
-		}
-	}
-		
-	for(z = 0; z < c - 2; z++)
-	{
-
-		if(stk[z] == '2' && stk[z + 1] == 'E' &&
-								stk[z + 2] == '2')
-		{
-			printf("%s2E2", ac);
-			stk[z] = 'E';
-			stk[z + 1] = '\0';
-			stk[z + 2] = '\0';
-			printf("\n$%s\t%s$\t", stk, a);
-			i = i - 2;
-		}
-		
-	}
-		
-	for(z=0; z<c-2; z++)
-	{
-
-		if(stk[z] == '3' && stk[z + 1] == 'E' &&
-								stk[z + 2] == '3')
-		{
-			printf("%s3E3", ac);
-			stk[z]='E';
-			stk[z + 1]='\0';
-			stk[z + 1]='\0';
-			printf("\n$%s\t%s$\t", stk, a);
-			i = i - 2;
-		}
-	}
-	return ;
+    puts ("GRAMMAR is E->E+E \n E->E*E \n E->(E) \n E->id");
+    puts ("enter input string ");
+    gets (a);
+    c = strlen (a);
+    strcpy (act, "SHIFT->");
+    puts ("stack \t input \t action");
+    for (k = 0, i = 0; j < c; k++, i++, j++)
+    {
+        if (a[j] == 'i' && a[j + 1] == 'd')
+    	{
+        	  stk[i] = a[j];
+        	  stk[i + 1] = a[j + 1];
+        	  stk[i + 2] = '\0';
+        	  a[j] = ' ';
+        	  a[j + 1] = ' ';
+        	  printf ("\n$%s\t%s$\t%sid", stk, a, act);
+        	  check ();
+    	}
+        else
+    	{
+        	  stk[i] = a[j];
+        	  stk[i + 1] = '\0';
+        	  a[j] = ' ';
+        	  printf ("\n$%s\t%s$\t%ssymbols", stk, a, act);
+        	  check ();
+    	}
+    }
 }
-
-int main()
+void check ()
 {
-	printf("GRAMMAR is -\nE->2E2 \nE->3E3 \nE->4\n");
-	
-
-	strcpy(a,"32423");
-	
-
-	c=strlen(a);
-
-	strcpy(act,"SHIFT");
-
-	printf("\nstack \t input \t action");
-	
-
-	printf("\n$\t%s$\t", a);
-	
-
-	for(i = 0; j < c; i++, j++)
-	{
-		
-		printf("%s", act);
-		
-		
-		stk[i] = a[j];	
-		stk[i + 1] = '\0';
-		
-		
-		a[j]=' ';
-		
-		
-		printf("\n$%s\t%s$\t", stk, a);
-
-		check();
-	}
-
-	check();
-	
-	if(stk[0] == 'E' && stk[1] == '\0')
-		printf("Accept\n");
-	else //else reject
-		printf("Reject\n");
+      strcpy (ac, "REDUCE TO E");
+      for (z = 0; z < c; z++)
+        if (stk[z] == 'i' && stk[z + 1] == 'd')
+          {
+        	stk[z] = 'E';
+        	stk[z + 1] = '\0';
+        	printf ("\n$%s\t%s$\t%s", stk, a, ac);
+        	j++;
+          }
+      for (z = 0; z < c; z++)
+        if (stk[z] == 'E' && stk[z + 1] == '+' && stk[z + 2] == 'E')
+          {
+        	stk[z] = 'E';
+        	stk[z + 1] = '\0';
+        	stk[z + 2] = '\0';
+        	printf ("\n$%s\t%s$\t%s", stk, a, ac);
+        	i = i - 2;
+          }
+      for (z = 0; z < c; z++)
+        if (stk[z] == 'E' && stk[z + 1] == '*' && stk[z + 2] == 'E')
+        {
+        	stk[z] = 'E';
+        	stk[z + 1] = '\0';
+        	stk[z + 1] = '\0';
+        	printf ("\n$%s\t%s$\t%s", stk, a, ac);
+        	i = i - 2;
+        }
+      for (z = 0; z < c; z++)
+        if (stk[z] == '(' && stk[z + 1] == 'E' && stk[z + 2] == ')')
+        {
+        	stk[z] = 'E';
+        	stk[z + 1] = '\0';
+        	stk[z + 1] = '\0';
+        	printf ("\n$%s\t%s$\t%s", stk, a, ac);
+        	i = i - 2;
+              
+        }
 }
-
