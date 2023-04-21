@@ -6,15 +6,15 @@ void display (void);
 int main ()
 {
     top = -1;
-    printf ("Enter the size of stack[MAX=100]");
+    printf ("Enter the size of stack[MAX=100] : ");
     scanf ("%d", &n);
-    printf ("\n\t stack opertaions:");
+    printf ("\n\t stack opertaions : ");
     printf ("\n\t--------------------------:");
-    printf ("\n\t 1.push\t2.pop\t 3.display\t4.EXIT\t");
+    printf ("\n\t 1.push\t2.pop\t 3.display\t4.EXIT\t\n");
     do
     {
 
-      printf ("\n Enter the choice");
+      printf ("\n Enter the choice : ");
       scanf ("%d", &ch);
         switch (ch)
     	{
@@ -46,7 +46,7 @@ void push ()
     }
     else
     {
-      printf ("Enter a value to be pushed");
+      printf ("Enter a value to be pushed : ");
       scanf ("%d", &x);
       top++;
 
